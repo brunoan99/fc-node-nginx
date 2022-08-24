@@ -11,8 +11,6 @@ services:
       - node-network
     volumes: 
       - ./node:/usr/src/app
-    ports:
-      - 3000:3000
     tty: true
     depends_on:
       - db
@@ -30,6 +28,17 @@ services:
       - MYSQL_ROOT_PASSWORD=root
     networks:
       - node-network
+  nginx:
+    build:
+      context: ./nginx
+    image: brunoan99/nginx:prod
+    container_name: nginx
+    networks:
+      - node-network
+    ports: 
+      - 8080:80
+    depends_on:
+      - app
 
 networks:
   node-network:
