@@ -5,6 +5,7 @@ services:
   app:
     build: 
       context: node
+    image: brunoan99/node-with-nginx
     container_name: app
     entrypoint: dockerize -wait tcp://db:3306 -timeout 20s node index.js
     networks:
@@ -28,6 +29,7 @@ services:
       - MYSQL_ROOT_PASSWORD=root
     networks:
       - node-network
+
   nginx:
     build:
       context: ./nginx
